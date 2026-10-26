@@ -1,0 +1,75 @@
+<div class="contenedor">
+    <h1>Catálogo de películas</h1>
+
+    @if (mensaje()) {
+    <div class="aviso" [class.exito]="mensaje()!.tipo === 'exito'" [class.fallo]="mensaje()!.tipo === 'error'">
+        {{ mensaje()!.texto }}
+    </div>
+    }
+
+    <form class="formulario" [formGroup]="formulario" (ngSubmit)="guardar()">
+        <h2>{{ editandoId() === null ? 'Agregar película' : 'Editar película' }}</h2>
+
+        <label for="titulo">Título</label>
+        <input id="titulo" type="text" formControlName="titulo">
+        @if (mostrarError('titulo')) {
+        <small class="error">
+            @if (formulario.controls.titulo.errors?.['required']) { El título es obligatorio. }
+            @else { El título debe tener al menos 2 caracteres. }
+        </small>
+        }
+
+        <label for="director">Director</label>
+        <input id="director" type="text" formControlName="director">
+        @if (mostrarError('director')) {
+        <small class="error">El director es obligatorio.</small>
+        }
+
+        <label for="anio">Año</label>
+        <input id="anio" type="number" formControlName="anio">
+        @if (mostrarError('anio')) {
+        <small class="error">
+            @if (formulario.controls.anio.errors?.['required']) { El año es obligatorio. }
+            @else { Ingresa un año entre 1888 y 2100. }
+        </small>
+        }
+
+        <label for="genero">Género</label>
+        <input id="genero" type="text" formControlName="genero">
+        @if (mostrarError('genero')) {
+        <small class="error">El género es obligatorio.</small>
+        }
+
+        <div class="botones">
+            <button type="submit" [disabled]="formulario.invalid">
+                {{ editandoId() === null ? 'Agregar' : 'Guardar cambios' }}
+            </button>
+            @if (editandoId() !== null) {
+            <button type="button" class="secundario" (click)="cancelar()">Cancelar</button>
+            }
+        </div>
+    </form>
+
+    <h2 class="subtitulo">Películas registradas</h2>
+
+    @if (cargando()) {
+    <p class="vacio">Cargando películas...</p>
+    } @else if (peliculas().length === 0) {
+    <p class="vacio">No hay películas registradas.</p>
+    }
+
+    <div class="tarjetas">
+        @for (p of peliculas(); track p.id) {
+        <div class="tarjeta">
+            <span class="id">ID {{ p.id }}</span>
+            <h3>{{ p.titulo }}</h3>
+            <p>{{ p.director }}</p>
+            <p>{{ p.anio }} · {{ p.genero }}</p>
+            <div class="acciones">
+                <button type="button" (click)="editar(p)">Editar</button>
+                <button type="button" class="peligro" (click)="eliminar(p)">Eliminar</button>
+            </div>
+        </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{
+  "peliculas": [
+    {
+      "id": 1,
+      "titulo": "El viaje de Chihiro",
+      "director": "Hayao Miyazaki",
+      "anio": 2001,
+      "genero": "Animación"
+    },
+    {
+      "id": 2,
+      "titulo": "Parásitos",
+      "director": "Bong Joon-ho",
+      "anio": 2019,
+      "genero": "Drama"
+    },
+    {
+      "titulo": "Interestelar",
+      "director": "Christopher Nolan",
+      "anio": 2000,
+      "genero": "Ciencia ficción",
+      "id": 3
+    },
+    {
+      "titulo": "PeliculaEjemplo",
+      "director": "Ejemplo",
+      "anio": 2000,
+      "genero": "Ejemplar",
+      "id": 5
+    }
+  ]
+}
